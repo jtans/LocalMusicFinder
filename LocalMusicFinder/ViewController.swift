@@ -9,21 +9,18 @@ import Cocoa
 import RxSwift
 import RxCocoa
 
-class ViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewDataSource {
+class ViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewDataSource, NSFilePresenter {
     
-    class ObservingClass: NSObject, NSFilePresenter {
-        var urlChangeSubject = BehaviorRelay<NSURL?>(value: nil)
-        var presentedItemURL: URL?
-        lazy var presentedItemOperationQueue = OperationQueue.main
-        
-        
-        private func presentedSubitemDidChangeAtURL(url: NSURL) {
-            urlChangeSubject.accept(url)
-        }
-        
-        func presentedItemDidChange() {
-            urlChangeSubject.accept(nil)
-        }
+    var presentedItemURL: URL?
+    lazy var presentedItemOperationQueue = OperationQueue.main
+    
+    
+    private func presentedSubitemDidChangeAtURL(url: NSURL) {
+        dirChangeSubject.accept(url)
+    }
+    
+    func presentedItemDidChange() {
+        dirChangeSubject.accept(nil)
     }
 
     private let disposeBag = DisposeBag()
@@ -36,10 +33,10 @@ class ViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewData
     
     @IBOutlet weak var searchCtrl: NSSearchField!
     
-    let fileListener = ObservingClass()
-    
     var dir = BehaviorRelay<String>(value: NSHomeDirectory())
     var files = BehaviorRelay<[String]>(value: [])
+    var dirChangeSubject  = BehaviorRelay<NSURL?>(value: nil)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +72,13 @@ class ViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewData
             self.outlineView.reloadData()
         }).disposed(by: disposeBag)
         
-        Observable.combineLatest(dir.asObservable(), searchCtrl.rx.text.asObservable().distinctUntilChanged().debounce(RxTimeInterval.seconds(Int(0.5)), scheduler: MainScheduler.instance), fileListener.urlChangeSubject.asObservable()).subscribe(onNext: { (dir, keyword, url) in
+        dir.subscribe(onNext: { url in
+            NSFileCoordinator.removeFilePresenter(self)
+            self.presentedItemURL = NSURL(string: url) as URL?
+            NSFileCoordinator.addFilePresenter(self)
+        }).disposed(by: disposeBag)
+        
+        Observable.combineLatest(dir.asObservable(), searchCtrl.rx.text.asObservable().distinctUntilChanged().debounce(RxTimeInterval.seconds(Int(0.5)), scheduler: MainScheduler.instance), dirChangeSubject.asObservable()).subscribe(onNext: { (dir, keyword, url) in
             guard dir.count > 0 else {
                 return
             }
