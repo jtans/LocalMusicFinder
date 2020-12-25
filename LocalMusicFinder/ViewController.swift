@@ -33,6 +33,10 @@ class ViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewData
     
     @IBOutlet weak var searchCtrl: NSSearchField!
     
+   
+    @IBOutlet weak var labelResult: NSTextField!
+    
+    
     var dir = BehaviorRelay<String>(value: NSHomeDirectory())
     var files = BehaviorRelay<[String]>(value: [])
     var dirChangeSubject  = BehaviorRelay<NSURL?>(value: nil)
@@ -42,6 +46,8 @@ class ViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewData
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        labelResult.textColor = NSColor.red
         
         btnChooseDir.rx.tap.subscribe(onNext: {
             let dialog = NSOpenPanel();
@@ -69,6 +75,7 @@ class ViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewData
         dir.asDriver().drive(tfChooseDir.rx.text).disposed(by: disposeBag)
         
         files.subscribe(onNext: { _ in
+            self.labelResult.stringValue = "找到\(self.files.value.count)条记录"
             self.outlineView.reloadData()
         }).disposed(by: disposeBag)
         
@@ -137,13 +144,29 @@ class ViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewData
         }
         
         var text = item as? String ?? ""
+        let filepath = dir.value.appending("/\(text)")
+        let attr = try? FileManager.default.attributesOfItem(atPath: filepath)
+        if let attr = attr, let _size = attr[FileAttributeKey.size] as? NSNumber {
+            text = text.appending("\t" + covertToFileString(with: _size.uint64Value))
+        }
         
-//        let cellIdentifier = NSUserInterfaceItemIdentifier("outlineViewCell")
-//        let cell = outlineView.makeView(withIdentifier: cellIdentifier, owner: self) as! NSTableCellView
-//        cell.textField!.stringValue = text ?? ""
-        
-        let label = NSTextField(string: text)
-        return label
+        let cellIdentifier = NSUserInterfaceItemIdentifier("DataCell")
+        let cell = outlineView.makeView(withIdentifier: cellIdentifier, owner: self) as! NSTableCellView
+        cell.textField!.stringValue = text
+        cell.toolTip = text
+       
+        return cell
+    }
+    
+    func covertToFileString(with size: UInt64) -> String {
+        var convertedValue: Double = Double(size)
+        var multiplyFactor = 0
+        let tokens = ["bytes", "KB", "MB", "GB", "TB", "PB",  "EB",  "ZB", "YB"]
+        while convertedValue > 1024 {
+            convertedValue /= 1024
+            multiplyFactor += 1
+        }
+        return String(format: "%4.2f %@", convertedValue, tokens[multiplyFactor])
     }
 }
 
