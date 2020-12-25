@@ -707,17 +707,17 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="LocalMusicFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" misplaced="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="483"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="462"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O5Y-4s-8Wa">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="404"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="383"/>
                                 <clipView key="contentView" drawsBackground="NO" id="xys-NZ-NVB">
-                                    <rect key="frame" x="1" y="1" width="478" height="402"/>
+                                    <rect key="frame" x="1" y="1" width="478" height="381"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="Blx-yr-Pv0" id="EOw-Oh-EYD">
-                                            <rect key="frame" x="0.0" y="0.0" width="478" height="402"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="478" height="381"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -808,7 +808,7 @@
                                 </scroller>
                             </scrollView>
                             <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n58-bQ-IlP">
-                                <rect key="frame" x="364" y="441" width="96" height="22"/>
+                                <rect key="frame" x="364" y="420" width="96" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="96" id="L3y-1D-uaS"/>
                                 </constraints>
@@ -819,14 +819,14 @@
                                 </searchFieldCell>
                             </searchField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E14-t8-cuq">
-                                <rect key="frame" x="230" y="434" width="120" height="32"/>
+                                <rect key="frame" x="230" y="413" width="120" height="32"/>
                                 <buttonCell key="cell" type="push" title="Select Folder" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cts-Es-pZ6">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Egf-Cr-Ciy">
-                                <rect key="frame" x="20" y="441" width="196" height="21"/>
+                                <rect key="frame" x="20" y="420" width="196" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="bbv-yg-RkU">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -834,13 +834,27 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hH4-nH-LsJ">
-                                <rect key="frame" x="18" y="414" width="82" height="16"/>
+                                <rect key="frame" x="18" y="393" width="82" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="找到0条记录" id="cLf-h8-K1Y">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iTF-16-aq1">
+                                <rect key="frame" x="146" y="388" width="131" height="25"/>
+                                <popUpButtonCell key="cell" type="push" title="按修改时间排序" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="zNq-8J-WqS" id="8sV-iQ-0Pc">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="vLW-nm-jA3">
+                                        <items>
+                                            <menuItem title="按修改时间排序" state="on" id="zNq-8J-WqS"/>
+                                            <menuItem title="按创建时间排序" id="y8k-8T-PXt" userLabel="按创建时间"/>
+                                            <menuItem title="按名称排序" id="gBQ-D1-KcY"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                            </popUpButton>
                         </subviews>
                         <constraints>
                             <constraint firstItem="n58-bQ-IlP" firstAttribute="leading" secondItem="E14-t8-cuq" secondAttribute="trailing" constant="20" id="1Tg-hP-EcT"/>
@@ -849,10 +863,12 @@
                             <constraint firstItem="hH4-nH-LsJ" firstAttribute="top" secondItem="Egf-Cr-Ciy" secondAttribute="bottom" constant="11" id="GwD-Ie-bQi"/>
                             <constraint firstAttribute="bottom" secondItem="O5Y-4s-8Wa" secondAttribute="bottom" id="HIp-F3-sdi"/>
                             <constraint firstItem="E14-t8-cuq" firstAttribute="leading" secondItem="Egf-Cr-Ciy" secondAttribute="trailing" constant="20" id="HZE-Nz-jkw"/>
+                            <constraint firstItem="iTF-16-aq1" firstAttribute="leading" secondItem="hH4-nH-LsJ" secondAttribute="trailing" constant="50" id="Oxj-Lo-yjd"/>
                             <constraint firstItem="O5Y-4s-8Wa" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="VSd-MV-QKo"/>
                             <constraint firstAttribute="trailing" secondItem="n58-bQ-IlP" secondAttribute="trailing" constant="20" id="aro-Hv-p2x"/>
                             <constraint firstItem="Egf-Cr-Ciy" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="b5b-qg-oCh"/>
                             <constraint firstItem="O5Y-4s-8Wa" firstAttribute="top" secondItem="hH4-nH-LsJ" secondAttribute="bottom" constant="10" id="cXj-KY-Jg7"/>
+                            <constraint firstItem="iTF-16-aq1" firstAttribute="centerY" secondItem="hH4-nH-LsJ" secondAttribute="centerY" id="fGZ-aY-x9w"/>
                             <constraint firstItem="n58-bQ-IlP" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="haO-CO-0Jh"/>
                             <constraint firstItem="n58-bQ-IlP" firstAttribute="centerY" secondItem="E14-t8-cuq" secondAttribute="centerY" id="lcP-K5-yjw"/>
                             <constraint firstItem="E14-t8-cuq" firstAttribute="centerY" secondItem="Egf-Cr-Ciy" secondAttribute="centerY" id="q3H-IK-IXA"/>
@@ -861,6 +877,7 @@
                     </view>
                     <connections>
                         <outlet property="btnChooseDir" destination="E14-t8-cuq" id="7Rt-3B-QtV"/>
+                        <outlet property="btnSort" destination="iTF-16-aq1" id="vpM-V1-y4Q"/>
                         <outlet property="labelResult" destination="hH4-nH-LsJ" id="D3l-MN-y1x"/>
                         <outlet property="outlineView" destination="EOw-Oh-EYD" id="tVw-Ng-17z"/>
                         <outlet property="searchCtrl" destination="n58-bQ-IlP" id="6Dh-yV-WgJ"/>
@@ -869,7 +886,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="353.5" y="655"/>
+            <point key="canvasLocation" x="353" y="654.5"/>
         </scene>
     </scenes>
     <resources>

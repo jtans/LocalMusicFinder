@@ -33,7 +33,8 @@ class ViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewData
     
     @IBOutlet weak var searchCtrl: NSSearchField!
     
-   
+    @IBOutlet weak var btnSort: NSPopUpButton!
+    
     @IBOutlet weak var labelResult: NSTextField!
     
     
